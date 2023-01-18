@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_17_080455) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_18_073951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,10 +25,57 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_17_080455) do
     t.index ["user_detail_id"], name: "index_addresses_on_user_detail_id"
   end
 
+  create_table "admissions", force: :cascade do |t|
+    t.date "admission_date"
+    t.date "discharge_date"
+    t.string "dignostic"
+    t.string "admission_status"
+    t.bigint "patient_id"
+    t.bigint "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "rooms_id"
+    t.index ["rooms_id"], name: "index_admissions_on_rooms_id"
+  end
+
+  create_table "available_resources", force: :cascade do |t|
+    t.integer "available_capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_available_resources_on_room_id"
+  end
+
+  create_table "medicines", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "room_type"
+    t.string "description"
+    t.integer "charges"
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "treatments", force: :cascade do |t|
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "admission_id"
+    t.bigint "medicine_id"
+    t.index ["admission_id"], name: "index_treatments_on_admission_id"
+    t.index ["medicine_id"], name: "index_treatments_on_medicine_id"
   end
 
   create_table "user_details", force: :cascade do |t|
@@ -60,6 +107,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_17_080455) do
   end
 
   add_foreign_key "addresses", "user_details"
+  add_foreign_key "admissions", "rooms", column: "rooms_id"
+  add_foreign_key "admissions", "user_details", column: "patient_id"
+  add_foreign_key "admissions", "user_details", column: "staff_id"
+  add_foreign_key "available_resources", "rooms"
+  add_foreign_key "treatments", "admissions"
+  add_foreign_key "treatments", "medicines"
   add_foreign_key "user_details", "roles"
   add_foreign_key "users", "user_details"
 end
