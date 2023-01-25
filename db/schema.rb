@@ -87,7 +87,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_095434) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "role_id"
+    t.bigint "user_id"
     t.index ["role_id"], name: "index_user_details_on_role_id"
+    t.index ["user_id"], name: "index_user_details_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,11 +101,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_095434) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "jti", null: false
-    t.bigint "user_detail_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["user_detail_id"], name: "index_users_on_user_detail_id"
   end
 
   add_foreign_key "addresses", "user_details"
@@ -114,5 +114,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_095434) do
   add_foreign_key "treatments", "admissions"
   add_foreign_key "treatments", "medicines"
   add_foreign_key "user_details", "roles"
-  add_foreign_key "users", "user_details"
+  add_foreign_key "user_details", "users"
 end

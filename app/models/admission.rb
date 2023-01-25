@@ -3,4 +3,5 @@ class Admission < ApplicationRecord
   belongs_to :staff, class_name: 'UserDetail'
   has_many :treatments
   has_many :medicines, through: :treatments
+  validates :admission_date, :dignostic, :admission_status, presence: true
 end
