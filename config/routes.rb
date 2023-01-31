@@ -9,5 +9,5 @@ Rails.application.routes.draw do
                        registrations: "users/registrations",
                      }
   resources :users, :admissions, :addresses, :medicines, :rooms
-  post 'treatments/add' to: 'theatments#add'
+  post 'treatments/add', to: 'theatments#add'
 end
