@@ -1,4 +1,7 @@
 class MedicinesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_medicine, only: %i[show destroy update]
+
 
   def create 
     if Medicine.create(medicine_params)

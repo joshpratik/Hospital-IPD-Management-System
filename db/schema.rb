@@ -34,8 +34,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_095434) do
     t.bigint "staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "rooms_id"
-    t.index ["rooms_id"], name: "index_admissions_on_rooms_id"
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_admissions_on_room_id"
   end
 
   create_table "available_resources", force: :cascade do |t|
@@ -107,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_095434) do
   end
 
   add_foreign_key "addresses", "user_details"
-  add_foreign_key "admissions", "rooms", column: "rooms_id"
+  add_foreign_key "admissions", "rooms"
   add_foreign_key "admissions", "user_details", column: "patient_id"
   add_foreign_key "admissions", "user_details", column: "staff_id"
   add_foreign_key "available_resources", "rooms"

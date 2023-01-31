@@ -1,4 +1,7 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_room, only: %i[show destroy update]
+
   
   def create 
     if Room.create(room_params)

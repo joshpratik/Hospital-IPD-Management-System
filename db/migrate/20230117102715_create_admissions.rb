@@ -9,7 +9,7 @@ class CreateAdmissions < ActiveRecord::Migration[7.0]
       t.bigint :staff_id
       t.timestamps
     end
-    add_reference :admissions, :rooms, foreign_key: true
+    add_reference :admissions, :room, foreign_key: true
     add_foreign_key :admissions, :user_details, column: :patient_id
     add_foreign_key :admissions, :user_details, column: :staff_id
   end
