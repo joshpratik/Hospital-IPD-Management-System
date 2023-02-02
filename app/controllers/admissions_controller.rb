@@ -1,5 +1,6 @@
 class AdmissionsController < ApplicationController
   before_action :authenticate_user!
+  # load_and_authorize_resource
   before_action :set_admission, only: %i[show destroy update]
 
   def create 
@@ -23,7 +24,7 @@ class AdmissionsController < ApplicationController
     if @admission
       render json: {status: 'success', data: @admission }, status: :ok
     else
-      render json: { errors: @admission.errors.full_message },
+      render json: { errors: @admission.errors.full_messages },
              status: :unprocessable_entity
     end
   end
@@ -40,7 +41,7 @@ class AdmissionsController < ApplicationController
 
   def delete 
     if @admission
-      if @admission.update(:admission_status: 'discharged')
+      if @admission.update(admission_status: 'discharged')
         @availibility = AvailableResource.find_by(room_id: @admission.room_id)
         @availibility.update(available_capacity: @availibility.available_capacity+1)
       else

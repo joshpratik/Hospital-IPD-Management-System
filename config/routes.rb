@@ -8,6 +8,7 @@ Rails.application.routes.draw do
                        sessions: "users/sessions",
                        registrations: "users/registrations",
                      }
-  resources :users, :admissions, :addresses, :medicines, :rooms
+  resources :user_details, :admissions, :addresses, :medicines, :rooms
+  resources :users
   post 'treatments/add', to: 'theatments#add'
 end

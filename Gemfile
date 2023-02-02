@@ -15,6 +15,7 @@ gem "devise"
 gem "devise-jwt"
 gem "fast_jsonapi"
 gem "byebug"
+gem "cancancan"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
