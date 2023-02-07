@@ -1,21 +1,26 @@
 class AdmissionsController < ApplicationController
   before_action :authenticate_user!
-  # load_and_authorize_resource
+  load_and_authorize_resource :except => [:create]
   before_action :set_admission, only: %i[show destroy update]
 
-  def create 
-    @availibility = AvailableResource.find_by(room_id: params[:room_id])
+  def create
+    authorize! :create, Admission
+    @availibility = AvailableResource.find_by(room_id: admission_params[:room_id])
     if @availibility.available_capacity > 0
       @admission = Admission.new(admission_params)
       @admission.admission_status = 'admitted'
-      @admission.create
+      @admission.save
+    else
+      render json: { errors: "Not Enough Capacity Available" },
+             status: :unprocessable_entity
+      return
     end
     
     if @admission
       @availibility.update(available_capacity: @availibility.available_capacity-1)
       render json: {status: 'success', data: @admission }, status: :created
     else
-      render json: { errors: @admission.errors.full_message },
+      render json: { errors: @admission.errors.full_messages },
              status: :unprocessable_entity
     end
   end
@@ -34,12 +39,12 @@ class AdmissionsController < ApplicationController
       @admission.update(admission_params)
       render json: {status: 'success', data: @admission }, status: :ok
     else
-      render json: { errors: @admission.errors.full_message },
+      render json: { errors: @admission.errors.full_messages },
              status: :unprocessable_entity
     end
   end
 
-  def delete 
+  def destroy 
     if @admission
       if @admission.update(admission_status: 'discharged')
         @availibility = AvailableResource.find_by(room_id: @admission.room_id)

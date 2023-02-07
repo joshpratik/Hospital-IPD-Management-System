@@ -1,14 +1,16 @@
 class MedicinesController < ApplicationController
   before_action :authenticate_user!
-  # load_and_authorize_resource
-  before_action :set_medicine, only: %i[show destroy update]
+  load_and_authorize_resource :except => [:create]
+  before_action :set_medicine, only: %i[show update]
 
 
   def create 
-    if Medicine.create(medicine_params)
-      render json: "medicine added", status: :created
+    authorize! :create, Medicine
+    @medicine = Medicine.new(medicine_params)
+    if @medicine.save
+      render json: @medicine, status: :created
     else
-      render json: { errors: "medicine not added" },
+      render json: { errors: @medicine.errors.full_messages },
              status: :unprocessable_entity
     end
   end
@@ -25,16 +27,7 @@ class MedicinesController < ApplicationController
     if @medicine.update(medicine_params)
       render json: @medicine, status: :ok
     else
-      render json: { errors: @medicine.errors.full_message },
-             status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    if @medicine.destroy
-      render json: "medicine deleted", status: :success
-    else
-      render json: { errors: @medicine.errors.full_message },
+      render json: { errors: @medicine.errors.full_messages },
              status: :unprocessable_entity
     end
   end

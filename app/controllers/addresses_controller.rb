@@ -1,34 +1,33 @@
 class AddressesController < ApplicationController
   before_action :authenticate_user!
-  # load_and_authorize_resource
+  load_and_authorize_resource :except => [:create]
+  before_action :set_address, only: %i[show update]
 
   def create 
-    if Address.create(address_params)
-      render json: "address added", status: :created
+    authorize! :create, Address
+    @address = Address.new(address_params)
+    if @address.save
+      render json: @address, status: :created
     else
-      render json: { errors: "address not added" },
+      render json: { errors: @address.errors.full_messages },
              status: :unprocessable_entity
     end
   end
 
   def show
-    render json: UserDetail.find(params[:id]).address
-  end
-
-  def update 
-    if Address.update(address_params)
-      render json: "address updated", status: :ok
+    if @address
+      render json: @address, status: :ok
     else
-      render json: { errors: "address not updated" },
+      render json: { errors: @address.errors.full_messages },
              status: :unprocessable_entity
     end
   end
 
-  def destroy
-    if UserDetail.find(params[:id]).address.destroy
-      render json: "address deleted", status: :ok
-    else  
-      render json: { errors: "address not deleted" },
+  def update 
+    if @address.update(address_params)
+      render json: @address, status: :ok
+    else
+      render json: { errors: @address.errors.full_messages },
              status: :unprocessable_entity
     end
   end
@@ -39,4 +38,7 @@ class AddressesController < ApplicationController
     params.require(:address).permit(:locality, :city, :state, :pin, :user_detail_id)
   end
 
+  def set_address
+    @address = Address.find(params[:id])
+  end
 end

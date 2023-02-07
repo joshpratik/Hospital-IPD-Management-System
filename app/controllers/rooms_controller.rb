@@ -1,14 +1,16 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:create]
   before_action :set_room, only: %i[show destroy update]
 
   
   def create 
-    if Room.create(room_params)
-      render json: "room added", status: :created
+    authorize! :create, Room
+    @room = Room.new(room_params)
+    if @room.save
+      render json: @room, status: :created
     else
-      render json: { errors: "room not added" },
+      render json: { errors: @room.errors.full_messages },
              status: :unprocessable_entity
     end
   end
@@ -25,16 +27,7 @@ class RoomsController < ApplicationController
     if @room.update(room_params)
       render json: @room, status: :ok
     else
-      render json: { errors: @room.errors.full_message },
-             status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    if @room.destroy
-      render json: "room deleted", status: :success
-    else
-      render json: { errors: @room.errors.full_message },
+      render json: { errors: @room.errors.full_messages },
              status: :unprocessable_entity
     end
   end

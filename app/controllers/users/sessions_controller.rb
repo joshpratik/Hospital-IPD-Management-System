@@ -12,7 +12,6 @@ class Users::SessionsController < Devise::SessionsController
                        role: current_user.user_detail.role.name
                      },
            }, status: :ok
-    #debugger
   end
 
   def respond_to_on_destroy
@@ -31,11 +30,4 @@ class Users::SessionsController < Devise::SessionsController
              }, status: :unauthorized
     end
   end
-
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
 end

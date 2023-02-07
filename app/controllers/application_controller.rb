@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :authenticate_user!
-  load_and_authorize_resource
+  
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   
   rescue_from CanCan::AccessDenied do |exception|
