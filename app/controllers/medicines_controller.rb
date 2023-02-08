@@ -15,6 +15,16 @@ class MedicinesController < ApplicationController
     end
   end
 
+  def index 
+    @medicines = Medicine.all
+    if @medicines
+      render json: {status: 'success', data: @medicines }, status: :ok
+    else
+      render json: { errors: @medicines.errors.full_messages },
+             status: :unprocessable_entity
+    end
+  end
+
   def show
     if @medicine 
       render json: @medicine, status: :ok

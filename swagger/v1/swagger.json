@@ -5,7 +5,1337 @@
     "version": "v1"
   },
   "paths": {
-    "/users/sign_in": {
+    "/addresses": {
+      "post": {
+        "summary": "create address",
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "locality": {
+                        "type": "string"
+                      },
+                      "city": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "date"
+                      },
+                      "pin": {
+                        "type": "integer"
+                      },
+                      "user_detail_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "address",
+                  "locality",
+                  "city",
+                  "state",
+                  "pin",
+                  "user_detail_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/addresses/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "show address",
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "summary": "update address",
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "locality": {
+                        "type": "string"
+                      },
+                      "city": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "date"
+                      },
+                      "pin": {
+                        "type": "integer"
+                      },
+                      "user_detail_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "address",
+                  "locality",
+                  "city",
+                  "state",
+                  "pin",
+                  "user_detail_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admissions": {
+      "get": {
+        "summary": "list admissions",
+        "tags": [
+          "Admission"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "create admission",
+        "tags": [
+          "Admission"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "admission": {
+                    "type": "object",
+                    "properties": {
+                      "admission_date": {
+                        "type": "date"
+                      },
+                      "discharge_date": {
+                        "type": "date"
+                      },
+                      "dignostic": {
+                        "type": "string"
+                      },
+                      "admission_status": {
+                        "type": "string"
+                      },
+                      "staff_id": {
+                        "type": "integer"
+                      },
+                      "room_id": {
+                        "type": "integer"
+                      },
+                      "patient_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "admission",
+                  "admission_date",
+                  "dignostic",
+                  "admission_status",
+                  "staff_id",
+                  "patient_id",
+                  "room_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admissions/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "show admission",
+        "tags": [
+          "Admission"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "summary": "discharge patient",
+        "tags": [
+          "Admission"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "summary": "update admission",
+        "tags": [
+          "Admission"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "admission": {
+                    "type": "object",
+                    "properties": {
+                      "admission_date": {
+                        "type": "date"
+                      },
+                      "discharge_date": {
+                        "type": "date"
+                      },
+                      "dignostic": {
+                        "type": "string"
+                      },
+                      "admission_status": {
+                        "type": "string"
+                      },
+                      "staff_id": {
+                        "type": "integer"
+                      },
+                      "room_id": {
+                        "type": "integer"
+                      },
+                      "patient_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "admission",
+                  "admission_date",
+                  "dignostic",
+                  "admission_status",
+                  "staff_id",
+                  "patient_id",
+                  "room_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admissions/invoice/:id": {
+      "get": {
+        "summary": "create invoice",
+        "tags": [
+          "Admission"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/medicines": {
+      "get": {
+        "summary": "list medicines",
+        "tags": [
+          "Medicine"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "create medicine",
+        "tags": [
+          "Medicine"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "medicine": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "float"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "medicine",
+                  "name",
+                  "price"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/medicines/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "show medicine",
+        "tags": [
+          "Medicine"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "summary": "update medicine",
+        "tags": [
+          "Medicine"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "medicine": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "float"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "medicine",
+                  "name",
+                  "price"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rooms": {
+      "get": {
+        "summary": "list rooms",
+        "tags": [
+          "Room"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "create room",
+        "tags": [
+          "Room"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "room": {
+                    "type": "object",
+                    "properties": {
+                      "room_type": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "charges": {
+                        "type": "integer"
+                      },
+                      "capacity": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "room",
+                  "room_type",
+                  "description",
+                  "charges",
+                  "capacity"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rooms/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "show room",
+        "tags": [
+          "Room"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "summary": "update room",
+        "tags": [
+          "Room"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "room": {
+                    "type": "object",
+                    "properties": {
+                      "room_type": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "charges": {
+                        "type": "integer"
+                      },
+                      "capacity": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "room",
+                  "room_type",
+                  "description",
+                  "charges",
+                  "capacity"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/treatments": {
+      "get": {
+        "summary": "list treatments",
+        "tags": [
+          "Treatment"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "create treatment",
+        "tags": [
+          "Treatment"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "treatment": {
+                    "type": "object",
+                    "properties": {
+                      "quantity": {
+                        "type": "string"
+                      },
+                      "admission_id": {
+                        "type": "integer"
+                      },
+                      "medicine_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "treatment",
+                  "quantity",
+                  "admission_id",
+                  "medicine_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/treatments/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "show treatment",
+        "tags": [
+          "Treatment"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "summary": "update treatment",
+        "tags": [
+          "Treatment"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "treatment": {
+                    "type": "object",
+                    "properties": {
+                      "quantity": {
+                        "type": "string"
+                      },
+                      "admission_id": {
+                        "type": "integer"
+                      },
+                      "medicine_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "treatment",
+                  "quantity",
+                  "admission_id",
+                  "medicine_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user_details": {
+      "get": {
+        "summary": "list user_details",
+        "tags": [
+          "User Details"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "create User Details",
+        "tags": [
+          "User Details"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_detail": {
+                    "type": "object",
+                    "properties": {
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "date_of_birth": {
+                        "type": "date"
+                      },
+                      "gender": {
+                        "type": "string"
+                      },
+                      "phone_no": {
+                        "type": "string"
+                      },
+                      "user_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "user_detail",
+                  "first_name",
+                  "date_of_birth",
+                  "gender",
+                  "phone_no"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user_details/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "show user_detail",
+        "tags": [
+          "User Details"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "summary": "update user_detail",
+        "tags": [
+          "User Details"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_detail": {
+                    "type": "object",
+                    "properties": {
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "date_of_birth": {
+                        "type": "date"
+                      },
+                      "gender": {
+                        "type": "string"
+                      },
+                      "phone_no": {
+                        "type": "string"
+                      },
+                      "user_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "user_detail",
+                  "first_name",
+                  "date_of_birth",
+                  "gender",
+                  "phone_no"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
       "post": {
         "summary": "create session",
         "tags": [
@@ -51,7 +1381,7 @@
         }
       }
     },
-    "/users/sign_out": {
+    "/logout": {
       "delete": {
         "summary": "delete session",
         "tags": [
@@ -78,6 +1408,67 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "create user",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "402": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "user",
+                  "email",
+                  "password"
+                ]
+              }
+            }
           }
         }
       }

@@ -4,7 +4,6 @@ RSpec.describe User, type: :model do
     let(:user) { build :user, :valid }
     let(:inavlid_user) { build :user, :emailmissing }
     it 'should be valid user with valid parameters' do
-      debugger
       expect(user.valid?).to eq(true)
     end
     it 'should not save user with email field missing' do

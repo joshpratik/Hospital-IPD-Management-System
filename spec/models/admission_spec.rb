@@ -9,7 +9,6 @@ RSpec.describe Admission, type: :model do
   let (:room) { create :room}
   let (:admission) { build :admission, patient: patient_detail, staff: staff_detail, room: room}
   it 'should create valid admission with valid parameters' do
-    debugger
     expect(admission.valid?).to eq(true)
   end
   it 'should not create admission without admission date' do

@@ -23,6 +23,16 @@ class RoomsController < ApplicationController
     end
   end
 
+  def index 
+    @rooms = Room.all
+    if @rooms
+      render json: {status: 'success', data: @rooms }, status: :ok
+    else
+      render json: { errors: @rooms.errors.full_messages },
+             status: :unprocessable_entity
+    end
+  end
+
   def update
     if @room.update(room_params)
       render json: @room, status: :ok

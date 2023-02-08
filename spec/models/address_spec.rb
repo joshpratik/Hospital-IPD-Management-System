@@ -6,7 +6,6 @@ RSpec.describe Address, type: :model do
   let (:user_detail) { create :user_detail, :valid, role: role, user: user }
   let (:address) { build :address, :valid, user_detail: user_detail }
   it 'should create valid address with valid parameters' do
-    debugger
     expect(address.valid?).to eq(true)
   end
   it 'should not create address without city' do
