@@ -12,6 +12,7 @@ class Ability
       can :manage, Address
       can :manage, Medicine
       can :manage, Treatment
+      can :read, Room
     end
   end
 end
