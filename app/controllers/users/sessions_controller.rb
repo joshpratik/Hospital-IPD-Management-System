@@ -9,7 +9,8 @@ class Users::SessionsController < Devise::SessionsController
     render json: {
              status: { code: 200, message: "user signed_in sucessfully",
                        data: current_user,
-                       role: current_user.user_detail.role.name
+                       role: current_user.user_detail.role.name,
+                       token: response.headers[:Authorization]
                      },
            }, status: :ok
   end

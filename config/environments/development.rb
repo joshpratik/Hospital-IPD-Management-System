@@ -60,6 +60,17 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
+  config.action_mailer.perform_deliveries = true
+
+
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => 'pratik.baravkar@joshsoftware.com',
+    :password             => 'sgsyhasvseirhfuk',
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
 end
