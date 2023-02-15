@@ -8,6 +8,7 @@ class RoomsController < ApplicationController
     authorize! :create, Room
     @room = Room.new(room_params)
     if @room.save
+      AvailableResource.create(room_id: @room.id, available_capacity: @room.capacity)
       render json: @room, status: :created
     else
       render json: { errors: @room.errors.full_messages },

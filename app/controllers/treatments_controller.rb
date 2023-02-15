@@ -2,6 +2,20 @@ class TreatmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_treatment, only: %i[create]
 
+  def get_treatments
+    @treatments = Treatment.where(admission_id: params[:id])
+    @treatment_details = Array.new
+    @treatments.each do |treatment|
+      @treatment_details.push(
+        {
+          medicine_name: treatment.medicine.name,
+          quantity: treatment.quantity
+        }
+      )
+    end
+    render json: @treatment_details, status: :ok 
+  end
+
   def create 
     authorize! :create, Treatment
     if @treatment

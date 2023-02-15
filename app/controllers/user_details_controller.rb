@@ -4,13 +4,13 @@ class UserDetailsController < ApplicationController
   before_action :set_user, only: %i[show destroy update]
 
   def index 
-    if current_user.user_detail.role.name == 'admin'
+   # if current_user.user_detail.role.name == 'admin'
       render json: {staff: UserDetail.where(role_id: Role.find_by(name:'staff')),
                     patients: UserDetail.where(role_id: Role.find_by(name:'patient'))}, 
         status: :ok
-    else
-      render json: UserDetail.where(role_id: Role.find_by(name:'patient')), status: :ok
-    end
+    # else
+    #   render json: UserDetail.where(role_id: Role.find_by(name:'patient')), status: :ok
+    # end
   end
 
   def create

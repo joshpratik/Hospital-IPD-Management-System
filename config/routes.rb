@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   resources :user_details, :admissions, :addresses, :medicines, :rooms, :users
   resources :treatments, only: [:create]
   get '/admissions/invoice/:id', to: 'admissions#invoice'
+  get '/treatments/admission/:id', to: 'treatments#get_treatments'
 end

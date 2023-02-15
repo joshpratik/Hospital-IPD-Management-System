@@ -35,9 +35,22 @@ class AdmissionsController < ApplicationController
   end
 
   def index
-    @admissions = Admission.all
+    @admissions = Admission.where(admission_status: 'admitted')
+    @admission_details = Array.new
+    @admissions.each do |admission|
+      @admission_details.push(
+        {
+          id: admission.id,
+          patient: UserDetail.find(admission.patient_id).first_name,
+          staff: UserDetail.find(admission.staff_id).first_name,
+          room: Room.find(admission.room_id).room_type,
+          dignostic: admission.dignostic,
+          admission_date: admission.admission_date
+        }
+      )
+    end
     if @admissions
-      render json: {status: 'success', data: @admissions }, status: :ok
+      render json: {status: 'success', data: @admission_details }, status: :ok
     else
       render json: { errors: @admissions.errors.full_messages },
              status: :unprocessable_entity
