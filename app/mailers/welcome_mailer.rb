@@ -4,6 +4,6 @@ class WelcomeMailer < ApplicationMailer
     @user = params[:user]
     @password = password
     @url  = 'http://localhost:3000/login'
-    mail(to: 'pratikbaravkar5@gmail.com', subject: 'Welcome OnBoard')
+    mail(to: @user.email, subject: 'Welcome OnBoard')
   end
 end

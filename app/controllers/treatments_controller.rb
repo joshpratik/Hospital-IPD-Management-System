@@ -3,17 +3,17 @@ class TreatmentsController < ApplicationController
   before_action :set_treatment, only: %i[create]
 
   def get_treatments
-    @treatments = Treatment.where(admission_id: params[:id])
-    @treatment_details = Array.new
-    @treatments.each do |treatment|
-      @treatment_details.push(
-        {
-          medicine_name: treatment.medicine.name,
-          quantity: treatment.quantity
-        }
-      )
-    end
-    render json: @treatment_details, status: :ok 
+    @treatments = Treatment.where(admission_id: params[:id]).as_json(only: %i[quantity], include: ['medicine' => {:only=> :name}])
+    # @treatment_details = Array.new
+    # @treatments.each do |treatment|
+    #   @treatment_details.push(
+    #     {
+    #       medicine_name: treatment.medicine.name,
+    #       quantity: treatment.quantity
+    #     }
+    #   )
+    # end
+    render json: @treatments, status: :ok 
   end
 
   def create 

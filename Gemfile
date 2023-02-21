@@ -16,7 +16,7 @@ gem "devise-jwt"
 gem "fast_jsonapi"
 gem "byebug"
 gem "cancancan"
-
+gem 'simplecov', require: false, group: :test
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
