@@ -1,6 +1,6 @@
 class AdmissionsController < ApplicationController
-  before_action :authenticate_user!
-  load_and_authorize_resource :except => [:create]
+  #before_action :authenticate_user!
+  #load_and_authorize_resource :except => [:create]
   before_action :set_admission, only: %i[show destroy update invoice]
 
   def create
@@ -55,6 +55,13 @@ class AdmissionsController < ApplicationController
       render json: { errors: @admissions.errors.full_messages },
              status: :unprocessable_entity
     end
+    # receipt_pdf = Prawn::Document.new
+    # receipt_pdf.text 'My Text'
+    # receipt_pdf.text 'My Styled Text', style: :bold
+    # receipt_pdf.text 'My Sized Text', size: 20
+    # receipt_pdf.text 'My Colored Text', color: '7f7f7f'
+    # receipt_pdf.text 'My Aligned Text', align: :right
+    # send_data receipt_pdf.render, filename: 'my_pdf_file.pdf', type: 'application/pdf', disposition: 'inline'
   end
 
   def update
@@ -89,28 +96,50 @@ class AdmissionsController < ApplicationController
 
   def invoice 
     if @admission
-      @medicine_charges = Array.new
+      @charges = Array.new
       @room = @admission.room
       no_of_days = (@admission.discharge_date - @admission.admission_date).to_i
       @total = no_of_days * @room.charges
-      @room_charges = {room_type: @room.room_type, 
-                     charges: @room.charges,
-                     no_of_days: no_of_days,
-                     room_total: @total
-                    }
+      @charges.push([ 'Room Type', 
+                      'Charges',
+                      'Days',
+                      'Total'
+                    ],
+                    [ @room.room_type, 
+                      @room.charges,
+                      no_of_days,
+                      @total
+                    ],['','','',''])
       @treatments = @admission.treatments
+      @charges.push([
+        'medicine',
+        'price',
+        'quantity',
+        'total'
+      ])
       @treatments.each do |treatment|
         medicine = treatment.medicine
-        @medicine_charges.push({
-          medicine: medicine.name,
-          price: medicine.price,
-          quantity: treatment.quantity,
-          total: medicine.price * treatment.quantity
-        })
+        @charges.push([
+          medicine.name,
+          medicine.price,
+          treatment.quantity,
+          medicine.price * treatment.quantity
+        ])
         @total += medicine.price * treatment.quantity
       end
-      render json: { room_charges: @room_charges, medicine_charges: @medicine_charges, total: @total },
-                     status: :ok
+      patient = "Patient Name: #{@admission.patient.first_name} #{@admission.patient.last_name}"
+      admission_date = "Admission Date : #{@admission.admission_date}"
+      discharge_date = "Discharge Date : #{@admission.discharge_date}"
+      receipt_pdf = Prawn::Document.new
+      receipt_pdf.text 'Hospital IPD Management System', align: :center, style: :bold, size: 20
+      receipt_pdf.text 'Invoice', align: :center, size: 18
+      receipt_pdf.text patient, align: :center, size: 15
+      receipt_pdf.text admission_date, align: :center, size: 15
+      receipt_pdf.text discharge_date, align: :center, size: 15
+      receipt_pdf.table @charges, :position => :center # table_data used from previous step
+      receipt_pdf.text '__________________________________________________________', align: :center
+      receipt_pdf.table [["Final Total", @total]], :position => :center
+      send_data receipt_pdf.render, type: 'application/pdf', disposition: 'inline'
     else
       render json: { errors: @admission.errors.full_message },
              status: :unprocessable_entity
